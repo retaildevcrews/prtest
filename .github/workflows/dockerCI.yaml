@@ -1,0 +1,38 @@
+name: Docker Image Build
+
+on:
+  pull_request:
+    branches:
+      - master
+
+    paths-ignore:
+    - 'docs/**'
+    - '.devcontainer/**'
+    - '**.md'
+    - 'TestFiles/**'
+
+  push:
+    branches:
+      - master
+
+    paths-ignore:
+    - 'docs/**'
+    - '.devcontainer/**'
+    - '**.md'
+    - 'TestFiles/**'
+
+    tags:
+      - v*
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: PR Test
+      run: |
+        echo ${{ github.ref }}

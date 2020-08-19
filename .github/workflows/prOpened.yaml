@@ -17,15 +17,13 @@ jobs:
 
     - name: PR Closed
       env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-        ACTION: ${{ github.event.action }}
         BASE_REF: ${{ github.base_ref }}
 
       if: ${{ github.event.action == 'closed' }}
       
       run: |
         echo "checking out base ref"
-        git checkout $BASE_REF
+        git checkout master
         git pull
         
     - name: PR Test

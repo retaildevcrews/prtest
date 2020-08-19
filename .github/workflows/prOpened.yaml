@@ -1,4 +1,4 @@
-name: PR Open
+name: PR Test
 
 on:
   pull_request:
@@ -16,16 +16,13 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: PR Closed
-      env:
-        BASE_REF: ${{ github.base_ref }}
-
       if: ${{ github.event.action == 'closed' }}
-      
+
       run: |
         echo "checking out base ref"
         git config pull.ff only
         git fetch --all
-        git checkout $BASE_REF
+        git checkout ${{ github.base_ref }}
         git pull
         
     - name: PR Test

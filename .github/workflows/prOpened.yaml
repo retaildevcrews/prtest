@@ -23,8 +23,9 @@ jobs:
       
       run: |
         echo "checking out base ref"
+        git config pull.ff only
         git fetch --all
-        git checkout master
+        git checkout $BASE_REF
         git pull
         
     - name: PR Test

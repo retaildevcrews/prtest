@@ -19,15 +19,14 @@ jobs:
       if: ${{ github.event.action == 'closed' }}
 
       run: |
-        echo "checking out base ref"
+
+        # checkout master branch
         git config pull.ff only
         git fetch --all
         git checkout ${{ github.base_ref }}
         git pull
         
     - name: PR Test
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-
       run: |
-        echo $GITHUB_CONTEXT
+        # test command
+        echo ${{ toJson(github) }}

@@ -2,7 +2,7 @@ name: PR Open
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, closed]
     branches:
       - master
 
@@ -18,5 +18,15 @@ jobs:
     - name: PR Test
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
+        ACTION: ${{ github.event.action }}
+
       run: |
-        echo "$GITHUB_CONTEXT"
+
+        if "$ACTION" == "closed"
+        then
+          echo "true"
+        fi
+        
+        git branch
+        echo $ACTION
+        echo $GITHUB_CONTEXT

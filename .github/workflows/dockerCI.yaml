@@ -1,28 +1,8 @@
-name: Docker Image Build
+name: PR Open
 
 on:
   pull_request:
-    branches:
-      - master
-
-    paths-ignore:
-    - 'docs/**'
-    - '.devcontainer/**'
-    - '**.md'
-    - 'TestFiles/**'
-
-  push:
-    branches:
-      - master
-
-    paths-ignore:
-    - 'docs/**'
-    - '.devcontainer/**'
-    - '**.md'
-    - 'TestFiles/**'
-
-    tags:
-      - v*
+    types: [opened, reopened]
 
 jobs:
 

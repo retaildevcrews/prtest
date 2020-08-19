@@ -23,7 +23,7 @@ jobs:
 
       run: |
 
-        if "$ACTION" == "closed"
+        if [[ "$ACTION" == "closed" ]]
         then
           echo $BASE_REF
         fi

@@ -19,12 +19,13 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
         ACTION: ${{ github.event.action }}
+        BASE_REF: ${{ github.base_ref }}
 
       run: |
 
         if "$ACTION" == "closed"
         then
-          echo "true"
+          echo $BASE_REF
         fi
         
         git branch

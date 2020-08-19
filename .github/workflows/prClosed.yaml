@@ -18,3 +18,4 @@ jobs:
     - name: PR Closed
       run: |
         echo ${{ github.ref }}
+        git branch

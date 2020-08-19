@@ -21,7 +21,7 @@ jobs:
         ACTION: ${{ github.event.action }}
         BASE_REF: ${{ github.base_ref }}
 
-      if: ${{ env.BASE_REF == 'closed' }}
+      if: ${{ $BASE_REF == 'closed' }}
       
       run: |
         echo "checking out base ref"

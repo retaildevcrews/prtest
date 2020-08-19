@@ -15,19 +15,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: PR Test
+    - name: PR Closed
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
         ACTION: ${{ github.event.action }}
         BASE_REF: ${{ github.base_ref }}
 
+      if: ${{ env.BASE_REF == 'closed' }}
+      
       run: |
-
-        if [[ "$ACTION" == "closed" ]]
-        then
-          echo $BASE_REF
-        fi
+        echo "checking out base ref"
+        git checkout $BASE_REF
+        git pull
         
-        git branch
-        echo $ACTION
+    - name: PR Test
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+
+      run: |
         echo $GITHUB_CONTEXT

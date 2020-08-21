@@ -29,7 +29,7 @@ jobs:
     - name: PR Test1
       run: |
         # test command
-        echo "${{ toJson(github.event.pull_request) }}"
+        echo "${{ toJson(github.event.pull_request.merged) }}"
 
     - name: PR Test
       run: |

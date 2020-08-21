@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: PR Closed
-      if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' }}
+      if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == 'false' }}
 
       run: |
 
@@ -26,11 +26,6 @@ jobs:
         git checkout ${{ github.base_ref }}
         git pull
         
-    - name: PR Test1
-      run: |
-        # test command
-        echo "${{ toJson(github.event.pull_request.merged) }}"
-
     - name: PR Test
       run: |
         # test command

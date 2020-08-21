@@ -26,6 +26,11 @@ jobs:
         git checkout ${{ github.base_ref }}
         git pull
         
+    - name: PR Test1
+      run: |
+        # test command
+        echo "${{ toJson(github.pull_request) }}"
+
     - name: PR Test
       run: |
         # test command

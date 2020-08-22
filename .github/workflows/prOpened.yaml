@@ -15,16 +15,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: PR Merged
+      if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
+
+      run: |
+
+        echo "PR merged"
+        exit 0
+        
     - name: PR Closed
       if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false }}
 
       run: |
 
-        # checkout master branch
-        git config pull.ff only
-        git fetch --all
-        git checkout ${{ github.base_ref }}
-        git pull
+        echo "PR not merged"
         
     - name: PR Test
       run: |

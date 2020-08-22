@@ -1,0 +1,36 @@
+name: PR Test
+
+on:
+  pull_request:
+    types: [opened, reopened, closed]
+    branches:
+      - master
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: PR Merged
+      if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}
+
+      run: |
+
+        echo "PR merged"
+        exit 0
+        
+    - name: PR Closed
+      if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false }}
+
+      run: |
+
+        echo "PR not merged"
+        
+    - name: PR Test
+      run: |
+        # test command
+        echo "${{ toJson(github) }}"

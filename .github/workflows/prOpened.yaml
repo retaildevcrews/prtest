@@ -11,6 +11,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      # These are used in if: conditions
+      TEST_SET: false
 
     steps:
     - uses: actions/checkout@v2
@@ -21,7 +24,7 @@ jobs:
       run: |
 
         echo "PR merged"
-        exit 0
+        echo "::set-env name=TEST_SET::false"
         
     - name: PR Closed
       if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && ! github.event.pull_request.merged }}
@@ -29,8 +32,13 @@ jobs:
       run: |
 
         echo "PR not merged"
+        echo "::set-env name=TEST_SET::true"
         
     - name: PR Test
+      if: ${{ env.TEST_SET == 'true' }}
+      env:
+        json_context: ${{ toJson(github) }}
       run: |
         # test command
-        echo "${{ toJson(github) }}"
+        context
+        echo "$json_context"

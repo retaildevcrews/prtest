@@ -36,9 +36,6 @@ jobs:
         
     - name: PR Test
       if: ${{ env.TEST_SET == 'true' }}
-      env:
-        json_context: ${{ toJson(github) }}
       run: |
         # test command
-        context
-        echo "$json_context"
+        echo "${{ toJson(github) }}"
